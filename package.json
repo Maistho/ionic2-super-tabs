@@ -1,6 +1,6 @@
 {
-  "name": "ionic2-super-tabs",
-  "version": "4.2.2",
+  "name": "@ifiske/ionic2-super-tabs",
+  "version": "4.2.3",
   "description": "Swipeable tabs module for Ionic 3 Apps",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
@@ -15,7 +15,7 @@
   },
   "author": "Ibby Hadeed <ibby@zyra.ca>",
   "license": "MIT",
-  "repository": "https://github.com/zyra/ionic2-super-tabs",
+  "repository": "https://github.com/ifiske/ionic2-super-tabs",
   "devDependencies": {
     "@angular/common": "4.4.3",
     "@angular/compiler": "4.4.3",
