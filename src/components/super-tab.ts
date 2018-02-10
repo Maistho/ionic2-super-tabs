@@ -48,10 +48,8 @@ export class SuperTab extends NavControllerBase implements OnInit, AfterViewInit
     return this.title;
   }
 
-  // needed to make Ionic Framework think this is a tabs component... needed for Deeplinking
-  get index() {
-    return this.parent.getTabIndexById(this.tabId);
-  }
+  @Input()
+  index: number;
 
   /**
    * Name of the ionicon to use

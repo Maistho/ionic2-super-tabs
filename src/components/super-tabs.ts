@@ -12,7 +12,8 @@ import {
   Output,
   Renderer2,
   ViewChild,
-  ViewEncapsulation
+  ViewEncapsulation,
+  AfterViewChecked
 } from '@angular/core';
 import { SuperTab } from './super-tab';
 import {
@@ -94,7 +95,7 @@ export interface SuperTabsConfig {
     }
   ]
 })
-export class SuperTabs implements OnInit, AfterContentInit, AfterViewInit, OnDestroy, RootNode, NavigationContainer {
+export class SuperTabs implements OnInit, AfterContentInit, AfterViewChecked, AfterViewInit, OnDestroy, RootNode, NavigationContainer {
   /**
    * Color of the toolbar behind the tab buttons
    */
@@ -358,6 +359,15 @@ export class SuperTabs implements OnInit, AfterContentInit, AfterViewInit, OnDes
     this.init = true;
   }
 
+  private _prevTabsLength = 0;
+  ngAfterViewChecked() {
+    if (this._prevTabsLength !== this._tabs.length) {
+      console.log('checked');
+      this.resize();
+      this._prevTabsLength = this._tabs.length;
+    }
+  }
+
   ngOnDestroy() {
     this.watches.forEach((watch: Subscription) => {
       watch.unsubscribe && watch.unsubscribe();
@@ -450,7 +460,12 @@ export class SuperTabs implements OnInit, AfterContentInit, AfterViewInit, OnDes
 
     tab.tabId = tab.tabId || `super-tabs-${this.id}-tab-${this._tabs.length}`;
 
-    this._tabs.push(tab);
+    if (tab.index) {
+      this._tabs.splice(tab.index, 0, tab);
+    } else {
+      tab.index = this._tabs.length;
+      this._tabs.push(tab);
+    }
 
     if (tab.icon) {
       this.hasIcons = true;
